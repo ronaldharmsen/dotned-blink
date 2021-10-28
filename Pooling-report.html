@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Pooling-20211028-055337</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22000
+11th Gen Intel Core i9-11950H 2.60GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=6.0.100-rc.2.21505.57
+  [Host]     : .NET 6.0.0 (6.0.21.48005), X64 RyuJIT  [AttachedDebugger]
+  Job-MXZODC : .NET 6.0.0 (6.0.21.48005), X64 RyuJIT
+</code></pre>
+<pre><code>Force=False  
+</code></pre>
+
+<table>
+<thead><tr><th>        Method</th><th>SizeInBytes</th><th>      Mean</th><th>   Error</th><th>   StdDev</th><th>    Median</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Allocate</td><td>100</td><td>7.755 ns</td><td>0.1597 ns</td><td>0.1247 ns</td><td>7.745 ns</td><td>0.0102</td><td>-</td><td>-</td><td>128 B</td>
+</tr><tr><td>RentAndReturn_Shared</td><td>100</td><td>12.666 ns</td><td>0.0934 ns</td><td>0.0780 ns</td><td>12.657 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>RentAndReturn_Aware</td><td>100</td><td>22.754 ns</td><td>0.0534 ns</td><td>0.0446 ns</td><td>22.752 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>Allocate</td><td>1000</td><td>49.376 ns</td><td>2.0706 ns</td><td>6.0071 ns</td><td>47.229 ns</td><td>0.0816</td><td>-</td><td>-</td><td>1,024 B</td>
+</tr><tr><td>RentAndReturn_Shared</td><td>1000</td><td>12.850 ns</td><td>0.0633 ns</td><td>0.0561 ns</td><td>12.849 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>RentAndReturn_Aware</td><td>1000</td><td>23.162 ns</td><td>0.1459 ns</td><td>0.1365 ns</td><td>23.122 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>Allocate</td><td>10000</td><td>453.218 ns</td><td>9.0023 ns</td><td>22.5849 ns</td><td>450.667 ns</td><td>0.7973</td><td>-</td><td>-</td><td>10,024 B</td>
+</tr><tr><td>RentAndReturn_Shared</td><td>10000</td><td>12.956 ns</td><td>0.0539 ns</td><td>0.0504 ns</td><td>12.942 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>RentAndReturn_Aware</td><td>10000</td><td>22.956 ns</td><td>0.2825 ns</td><td>0.2775 ns</td><td>22.852 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>Allocate</td><td>100000</td><td>4,527.725 ns</td><td>204.9009 ns</td><td>591.1858 ns</td><td>4,381.178 ns</td><td>31.2424</td><td>31.2424</td><td>31.2424</td><td>100,033 B</td>
+</tr><tr><td>RentAndReturn_Shared</td><td>100000</td><td>13.581 ns</td><td>0.2829 ns</td><td>0.2778 ns</td><td>13.544 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>RentAndReturn_Aware</td><td>100000</td><td>23.121 ns</td><td>0.4690 ns</td><td>0.4158 ns</td><td>23.177 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>Allocate</td><td>1000000</td><td>21,251.171 ns</td><td>943.7540 ns</td><td>2,767.8672 ns</td><td>20,616.653 ns</td><td>249.9695</td><td>249.9695</td><td>249.9695</td><td>1,000,092 B</td>
+</tr><tr><td>RentAndReturn_Shared</td><td>1000000</td><td>13.627 ns</td><td>0.2073 ns</td><td>0.1939 ns</td><td>13.608 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>RentAndReturn_Aware</td><td>1000000</td><td>23.243 ns</td><td>0.4693 ns</td><td>0.5021 ns</td><td>23.094 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>Allocate</td><td>10000000</td><td>1,367,198.247 ns</td><td>71,383.9305 ns</td><td>210,477.1295 ns</td><td>1,353,336.572 ns</td><td>185.5469</td><td>185.5469</td><td>185.5469</td><td>10,000,075 B</td>
+</tr><tr><td>RentAndReturn_Shared</td><td>10000000</td><td>14.430 ns</td><td>0.0550 ns</td><td>0.0430 ns</td><td>14.422 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>RentAndReturn_Aware</td><td>10000000</td><td>23.178 ns</td><td>0.2406 ns</td><td>0.2251 ns</td><td>23.205 ns</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr></tbody></table>
+</body>
+</html>

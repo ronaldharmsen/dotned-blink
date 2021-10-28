@@ -1,0 +1,12 @@
+﻿[Unit]
+Description=Trimmed API Service
+After=network.target
+SyslogIdentifier=trimmedapi
+
+[Service]
+ExecStart=/mnt/c/publish/TrimmedApi
+WorkingDirectory=/mnt/c/publish/
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
