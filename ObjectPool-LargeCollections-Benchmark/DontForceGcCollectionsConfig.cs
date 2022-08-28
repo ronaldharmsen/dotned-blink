@@ -5,8 +5,8 @@ public class DontForceGcCollectionsConfig : ManualConfig
 {
     public DontForceGcCollectionsConfig()
     {
-        Add(Job.Default
-            .With(new GcMode()
+        AddJob(Job.Default
+            .WithGcMode(new GcMode()
             {
                 Force = false // tell BenchmarkDotNet not to force GC collections after every iteration
             }));

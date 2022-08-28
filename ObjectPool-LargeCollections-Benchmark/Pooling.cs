@@ -14,7 +14,7 @@ public class Pooling
         (int)1E+7)] // 10 000 000 bytes = 10 MB
     public int SizeInBytes { get; set; }
 
-    private ArrayPool<byte> sizeAwarePool;
+    private ArrayPool<byte>? sizeAwarePool;
 
     [GlobalSetup]
     public void GlobalSetup()
@@ -36,7 +36,7 @@ public class Pooling
     public void RentAndReturn_Aware()
     {
         var pool = sizeAwarePool;
-        byte[] array = pool.Rent(SizeInBytes);
+        byte[] array = pool!.Rent(SizeInBytes);
         pool.Return(array);
     }
 }
